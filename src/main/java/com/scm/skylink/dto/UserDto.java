@@ -21,7 +21,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ToString
 public class UserDto {
 
     private String userId;

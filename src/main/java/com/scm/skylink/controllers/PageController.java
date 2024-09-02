@@ -77,6 +77,7 @@ public class PageController {
 
         // validate form data
         if (rBindingResult.hasErrors()) {
+            System.out.println(rBindingResult.toString());
             return "register";
         }
 
