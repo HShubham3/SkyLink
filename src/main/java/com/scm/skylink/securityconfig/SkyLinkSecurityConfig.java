@@ -18,7 +18,15 @@ public class SkyLinkSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/user/**").authenticated()
                         .anyRequest().permitAll())
-                .formLogin(Customizer.withDefaults());
+                .formLogin(flc -> flc.loginPage("/login")
+                        .loginProcessingUrl("/authenticateUser")
+                        .usernameParameter("email")
+                        .passwordParameter("pwd")
+                        .defaultSuccessUrl("/user/dashboard")
+                        .failureForwardUrl("/login?error=true"))
+                .logout(loc -> loc.logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .logoutSuccessUrl("/login?logout=true"));
 
         return http.build();
     }

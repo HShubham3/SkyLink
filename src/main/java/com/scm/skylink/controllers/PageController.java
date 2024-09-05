@@ -65,6 +65,11 @@ public class PageController {
         return "login";
     }
 
+    @PostMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     // Register Page
 
     @GetMapping("/register")
