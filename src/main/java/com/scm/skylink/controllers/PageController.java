@@ -22,6 +22,11 @@ public class PageController {
 
     private final UserService userService;
 
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/home";
+    }
+
     // Home Page
 
     @GetMapping("/home")

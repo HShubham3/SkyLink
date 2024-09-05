@@ -26,7 +26,7 @@ import lombok.ToString;
 @Builder
 @ToString
 @Table(name = "user_details")
-public class User {
+public class UserEntity {
 
     @Id
     private String userId;
@@ -54,6 +54,8 @@ public class User {
     private boolean emailVerified = false;
 
     private boolean phoneNoVerified = false;
+
+    private String roles;
 
     // SELF , GOOGLE , GITHUB , FACEBOOK ...
     @Enumerated(EnumType.STRING)

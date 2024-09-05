@@ -53,6 +53,6 @@ public class Contact {
 
     @ManyToOne()
     @JoinColumn(name = "userId")
-    private User user;
+    private UserEntity user;
 
 }
