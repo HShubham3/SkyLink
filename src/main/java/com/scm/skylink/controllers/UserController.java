@@ -1,24 +1,37 @@
 package com.scm.skylink.controllers;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 
+import com.scm.skylink.entities.Helper;
+import com.scm.skylink.services.UserService;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+@Slf4j
 @Controller
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    // user dashboard
+    private final UserService userService;
 
+    // user dashboard
     @GetMapping("/dashboard")
     public String getUserDashboard() {
         return "user/dashboard";
     }
 
     // user profile page
-
     @GetMapping("/profile")
-    public String getUserProfile() {
+    public String getUserProfile(Authentication authentication, Model model) {
+
         return "user/profile";
     }
 

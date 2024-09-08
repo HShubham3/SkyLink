@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.scm.skylink.dto.UserDto;
 import com.scm.skylink.entities.UserEntity;
+import com.scm.skylink.exceptions.ResourceNotFoundException;
 import com.scm.skylink.helper.AppConstants;
 import com.scm.skylink.repositories.UserRepo;
 import com.scm.skylink.services.UserService;
@@ -36,6 +37,14 @@ public class UserServiceImp implements UserService {
         user.setPwd(pwd);
         user.setRoles(AppConstants.ROLE_USER);
         return modelMapper.map(userRepo.save(user), UserDto.class);
+    }
+
+    @Override
+    public UserDto getUserByEmail(String email) {
+        UserEntity userEntity = userRepo.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("There is no user with this mail id:"));
+
+        return modelMapper.map(userEntity, UserDto.class);
     }
 
 }
