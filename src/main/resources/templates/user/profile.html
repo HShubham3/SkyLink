@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html th:replace="~{base:: parent(~{::#content},~{::title})}" xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | Page</title>
+    <title>Profile | SkyLink</title>
+
 </head>
 
 <body>
-    <h1>This is profile</h1>
-    <h3>Welcome! [[${userDetails.name}]]</h3>
-    <h3>Email : [[${userDetails.email}]]</h3>
+
+    <!-- Sidebar  -->
+    <div id="content" class="sm:pl-72">
+        <div data-th-replace="~{user/sidebar::sidebar}"></div>
+        <div class=" text-black dark:text-white flex flex-col text-center">
+            <h1 class="text-5xl">Welcome to Profile</h1>
+            <h2>How's journey going on</h2>
+        </div>
+    </div>
+
+
 </body>
 
 </html>

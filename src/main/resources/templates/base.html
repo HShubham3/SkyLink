@@ -13,15 +13,26 @@
     <link rel="stylesheet" data-th-href="@{'/css/output.css'}">
 </head>
 
-<body class="bg-gray-200 dark:bg-gray-800 text-white">
+<body class="bg-gray-100 dark:bg-gray-800 text-white">
 
     <!-- Common Header -->
 
-    <div data-th-replace="~{header::navbar}"></div>
+
+
+    <div data-th-if="${userDetails}">
+        <div data-th-replace="~{user/user_navbar::user_navbar}"></div>
+    </div>
+
+    <div data-th-unless="${userDetails}">
+        <div data-th-replace="~{header::navbar}"></div>
+    </div>
+
+
+
 
     <!-- Main Content -->
 
-    <section class="p-4 mt-10">
+    <section class="pt-20">
         <div data-th-replace="${content}"></div>
     </section>
 
