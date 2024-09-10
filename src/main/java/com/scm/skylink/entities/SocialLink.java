@@ -30,6 +30,6 @@ public class SocialLink {
 
     @ManyToOne
     @JoinColumn(name = "contactId")
-    private Contact contacts;
+    private ContactEntity contacts;
 
 }

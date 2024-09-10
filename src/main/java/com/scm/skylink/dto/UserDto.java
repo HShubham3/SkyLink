@@ -3,6 +3,7 @@ package com.scm.skylink.dto;
 import java.util.List;
 
 import com.scm.skylink.entities.Contact;
+import com.scm.skylink.entities.ContactEntity;
 import com.scm.skylink.entities.Providers;
 
 import jakarta.persistence.Enumerated;
@@ -55,6 +56,6 @@ public class UserDto {
 
     private String providerUserId;
 
-    private List<Contact> contacts;
+    private List<ContactEntity> contacts;
 
 }

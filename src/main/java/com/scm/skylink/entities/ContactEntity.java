@@ -26,7 +26,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Contact {
+public class ContactEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +49,7 @@ public class Contact {
     // mappings contacts , User
 
     @OneToMany(mappedBy = "contacts", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<SocialLink> links = new ArrayList<>();
+    private List<SocialLink> links;
 
     @ManyToOne()
     @JoinColumn(name = "userId")
