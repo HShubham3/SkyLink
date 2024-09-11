@@ -10,7 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -26,6 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "contacts")
 public class ContactEntity {
 
     @Id
@@ -38,13 +38,13 @@ public class ContactEntity {
 
     private String phoneNo;
 
-    private String profilePic;
+    private String contactImageUrl;
 
     private String address;
 
     private String description;
 
-    private boolean favorite = false;
+    private boolean favorite;
 
     // mappings contacts , User
 

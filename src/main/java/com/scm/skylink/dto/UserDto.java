@@ -2,7 +2,6 @@ package com.scm.skylink.dto;
 
 import java.util.List;
 
-import com.scm.skylink.entities.Contact;
 import com.scm.skylink.entities.ContactEntity;
 import com.scm.skylink.entities.Providers;
 
