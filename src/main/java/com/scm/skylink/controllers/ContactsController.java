@@ -52,7 +52,7 @@ public class ContactsController {
     }
 
     @PostMapping("/add")
-    public String saveContact(@ModelAttribute ContactDto contactDto, BindingResult rBindingResult,
+    public String saveContact(@Valid @ModelAttribute ContactDto contactDto, BindingResult rBindingResult,
             HttpSession session,
             Authentication authentication,
             Model model) {
