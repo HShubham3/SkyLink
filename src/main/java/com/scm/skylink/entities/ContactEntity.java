@@ -30,7 +30,7 @@ public class ContactEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long contactId;
 
     private String name;
 
@@ -45,6 +45,10 @@ public class ContactEntity {
     private String description;
 
     private boolean favorite;
+
+    private String webLink;
+
+    private String linkedinLink;
 
     // mappings contacts , User
 

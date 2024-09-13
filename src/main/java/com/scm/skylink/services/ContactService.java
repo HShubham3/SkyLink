@@ -2,7 +2,11 @@ package com.scm.skylink.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.scm.skylink.dto.ContactDto;
+import com.scm.skylink.entities.ContactEntity;
+import com.scm.skylink.entities.UserEntity;
 
 public interface ContactService {
 
@@ -28,9 +32,19 @@ public interface ContactService {
 
     // get contact by userId
 
-    List<ContactDto> getContactsByUserId(String id);
+    Page<ContactEntity> getContactsByUser(UserEntity user, int page, int size, String sortBy, String direction);
 
     // delete by id
 
     void delete(int id);
+
+    // search
+
+    Page<ContactEntity> searchByName(String name, int page, int size, String sortBy, String direction, UserEntity user);
+
+    Page<ContactEntity> searchByPhoneNo(String phoneNo, int page, int size, String sortBy, String direction,
+            UserEntity user);
+
+    Page<ContactEntity> searchByEmail(String email, int page, int size, String sortBy, String direction,
+            UserEntity user);
 }

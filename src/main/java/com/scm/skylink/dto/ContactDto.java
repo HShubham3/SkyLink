@@ -23,6 +23,8 @@ import lombok.ToString;
 @ToString
 public class ContactDto {
 
+    private Long contactId;
+
     @NotBlank(message = "Name is required")
     private String name;
 
