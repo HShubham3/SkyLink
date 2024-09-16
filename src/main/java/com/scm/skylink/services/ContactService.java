@@ -10,41 +10,35 @@ import com.scm.skylink.entities.UserEntity;
 
 public interface ContactService {
 
-    // save contact
+        // save contact
 
-    ContactDto saveContact(ContactDto contactDto);
+        ContactDto saveContact(ContactDto contactDto);
 
-    // update contact
+        // update contact
 
-    ContactDto updateContact(Long id, ContactDto contactDto);
+        ContactDto updateContact(Long id, ContactDto contactDto);
 
-    // get all contacts
+        // get contact by id
 
-    List<ContactDto> getAllContact();
+        ContactDto getContactById(Long id);
 
-    // get contact by id
+        // get all contact by user
 
-    ContactDto geContactById(Long id);
+        Page<ContactEntity> getContactsByUser(UserEntity user, int page, int size, String sortBy, String direction);
 
-    // search contact
+        // search contact
 
-    List<ContactDto> search(String name, String email, String phoneNo);
+        Page<ContactEntity> searchByName(String name, int page, int size, String sortBy, String direction,
+                        UserEntity user);
 
-    // get contact by userId
+        Page<ContactEntity> searchByPhoneNo(String phoneNo, int page, int size, String sortBy, String direction,
+                        UserEntity user);
 
-    Page<ContactEntity> getContactsByUser(UserEntity user, int page, int size, String sortBy, String direction);
+        Page<ContactEntity> searchByEmail(String email, int page, int size, String sortBy, String direction,
+                        UserEntity user);
 
-    // delete by id
+        // delete
 
-    void delete(int id);
+        void deleteContactById(long id);
 
-    // search
-
-    Page<ContactEntity> searchByName(String name, int page, int size, String sortBy, String direction, UserEntity user);
-
-    Page<ContactEntity> searchByPhoneNo(String phoneNo, int page, int size, String sortBy, String direction,
-            UserEntity user);
-
-    Page<ContactEntity> searchByEmail(String email, int page, int size, String sortBy, String direction,
-            UserEntity user);
 }

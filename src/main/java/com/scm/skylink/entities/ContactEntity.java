@@ -3,6 +3,8 @@ package com.scm.skylink.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,6 +20,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Getter
@@ -25,6 +28,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+// @ToString
 @Table(name = "contacts")
 public class ContactEntity {
 
@@ -55,7 +59,7 @@ public class ContactEntity {
     @OneToMany(mappedBy = "contacts", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<SocialLink> links;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "userId")
     private UserEntity user;
 

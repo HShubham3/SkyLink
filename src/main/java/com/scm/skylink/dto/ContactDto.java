@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.scm.skylink.entities.SocialLink;
 import com.scm.skylink.entities.UserEntity;
 
@@ -53,6 +54,7 @@ public class ContactDto {
 
     private List<SocialLink> links;
 
+    @JsonIgnore
     private UserEntity user;
 
 }

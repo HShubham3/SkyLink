@@ -1,12 +1,7 @@
 package com.scm.skylink.services.imp;
 
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -14,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.scm.skylink.dto.ContactDto;
 import com.scm.skylink.entities.ContactEntity;
 import com.scm.skylink.entities.UserEntity;
+import com.scm.skylink.exceptions.ResourceNotFoundException;
 import com.scm.skylink.repositories.ContactsRepo;
 import com.scm.skylink.repositories.UserRepo;
 import com.scm.skylink.services.ContactService;
@@ -36,27 +32,29 @@ public class ContactServiceImp implements ContactService {
     }
 
     @Override
-    public ContactDto updateContact(Long id, ContactDto contactDto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateContact'");
+    public ContactDto updateContact(Long id, ContactDto contactNew) {
+        var contactOld = contactsRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Contact not found "));
+
+        contactOld.setName(contactNew.getName());
+        contactOld.setEmail(contactNew.getEmail());
+        contactOld.setPhoneNo(contactNew.getPhoneNo());
+        contactOld.setAddress(contactNew.getAddress());
+        contactOld.setDescription(contactNew.getDescription());
+        contactOld.setFavorite(contactNew.isFavorite());
+        contactOld.setWebLink(contactNew.getWebLink());
+        contactOld.setLinkedinLink(contactNew.getLinkedinLink());
+        contactOld.setLinks(contactNew.getLinks());
+
+        contactOld.setContactImageUrl(contactNew.getContactImageUrl());
+
+        return modelMapper.map(contactsRepo.save(contactOld), ContactDto.class);
+
     }
 
     @Override
-    public List<ContactDto> getAllContact() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllContact'");
-    }
-
-    @Override
-    public ContactDto geContactById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'geContactById'");
-    }
-
-    @Override
-    public List<ContactDto> search(String name, String email, String phoneNo) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'search'");
+    public ContactDto getContactById(Long id) {
+        return modelMapper.map(contactsRepo.findById(id), ContactDto.class);
     }
 
     @Override
@@ -69,12 +67,6 @@ public class ContactServiceImp implements ContactService {
         Page<ContactEntity> contact = contactsRepo.findByUser(user, pageable);
 
         return contact;
-    }
-
-    @Override
-    public void delete(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
     }
 
     @Override
@@ -99,7 +91,7 @@ public class ContactServiceImp implements ContactService {
         var pageable = PageRequest.of(page, size, sort);
 
         Page<ContactEntity> contacts = contactsRepo.findByUserAndPhoneNoContaining(user, phoneNo, pageable);
-
+        contactsRepo.deleteById(1l);
         return contacts;
     }
 
@@ -113,6 +105,15 @@ public class ContactServiceImp implements ContactService {
         Page<ContactEntity> contacts = contactsRepo.findByUserAndEmailContaining(user, email, pageable);
 
         return contacts;
+    }
+
+    @Override
+    public void deleteContactById(long id) {
+        ContactEntity contact = contactsRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Contact with id " + id + " not found"));
+
+        contactsRepo.deleteByIdCustom(id);
+        System.out.println("Successfully deleted...");
     }
 
 }

@@ -1,6 +1,5 @@
 package com.scm.skylink.controllers;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
@@ -31,9 +30,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Slf4j
 @Controller
@@ -113,15 +112,11 @@ public class ContactsController {
             @RequestParam(value = "direction", defaultValue = "asc") String direction,
             Authentication authentication, Model model) {
 
-        // get all user contacts
-
         String email = Helper.getEmailOfLoggedInUser(authentication);
 
         Page<ContactEntity> contactPage = contactService.getContactsByUser(userRepo.findByEmail(email).get(), page,
                 size,
                 sortBy, direction);
-
-        // models
 
         model.addAttribute("contactPage", contactPage);
         log.info("Number of pages :{} \nPage Number :{}", contactPage.getTotalPages(), contactPage.getNumber());
@@ -161,6 +156,29 @@ public class ContactsController {
         model.addAttribute("pageSize", AppConstants.PAGE_SIZE);
         model.addAttribute("pageNumber", contacts.getNumber());
         return "user/search";
+    }
+
+    @GetMapping("/view/{contactId}")
+    public String getUpdateContactData(@PathVariable Long contactId, Model model) {
+        var contactDto = contactService.getContactById(contactId);
+        log.info("Contact to be updated : {}", contactDto.getContactId());
+        model.addAttribute("contactDto", contactDto);
+        return "user/update_contact";
+    }
+
+    @PostMapping("/update/{contactId}")
+    public String updateContact(@ModelAttribute ContactDto contactDto, @PathVariable Long contactId, Model model) {
+        contactService.updateContact(contactId, contactDto);
+        System.out.println("ContactDto=" + contactDto);
+        return "redirect:/user/contacts";
+    }
+
+    @GetMapping("/delete/{contactId}")
+    public String deleteContact(@PathVariable Long contactId, Model model) {
+        var contactDto = contactService.getContactById(contactId);
+        log.info("Contact id={}", contactDto.getContactId());
+        model.addAttribute("contactDto", contactDto);
+        return "redirect:/user/update_contact";
     }
 
 }

@@ -10,12 +10,14 @@
 
 <body>
 
-    <!-- Sidebar  -->
+
     <div id="content" class="sm:pl-64">
+        <!-- Sidebar  -->
         <div data-th-replace="~{user/sidebar::sidebar}"></div>
+
         <div class="p-5 text-black dark:text-white flex flex-col text-center">
-            <!-- <h1 class="text-5xl text-center">All your Contacts</h1>
-            <h2 class="text-center">This is your contact list</h2> -->
+            <h1 class="text-5xl text-center">All your Contacts</h1>
+            <h2 class="text-center">This is your contact list</h2>
 
             <!-- Contacts table  -->
             <div class="contact_container bg-white dark:bg-gray-800 ">
@@ -114,13 +116,15 @@
 
                                 <!-- action -->
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-red-600 dark:text-red-500 p-1"><i
-                                            class="fa-solid fa-trash"></i>
-                                    </a>
-                                    <a href="#" class="font-medium text-green-600 dark:text-green-500 p-1"><i
+                                    <button data-th-onclick="deleteContact([[*{contactId}]])"
+                                        class="font-medium text-red-600 dark:text-red-500 p-1"><i
+                                            class="fa-solid fa-trash"></i></button>
+                                    <a data-th-href="@{'/user/contacts/view/'+ *{contactId}}"
+                                        class="font-medium text-green-600 dark:text-green-500 p-1"><i
                                             class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 p-1"><i
-                                            class="fa-solid fa-eye"></i></a>
+                                    <button data-th-onclick="loadContactData([[${contactDetails.contactId}]])"
+                                        class="font-medium text-blue-600 dark:text-blue-500 p-1"><i
+                                            class="fa-solid fa-eye"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -151,6 +155,7 @@
                     </div>
                 </div>
             </div>
+            <div data-th-replace="~{user/contact_modal :: contact}"></div>
         </div>
     </div>
 </body>

@@ -94,6 +94,11 @@
 		<version>1.36.0</version>
     </dependency>
 
+    <dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	
 	</dependencies>
 
@@ -105,5 +110,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
+		
 </project>

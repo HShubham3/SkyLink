@@ -68,6 +68,6 @@ public class UserEntity {
     // mapping Contacts
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<ContactEntity> contacts = new ArrayList<>();
+    private List<ContactEntity> contacts;
 
 }

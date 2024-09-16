@@ -115,13 +115,13 @@
 
                                 <!-- action -->
                                 <td class="px-6 py-4">
-                                    <a href="#" class="font-medium text-red-600 dark:text-red-500 p-1"><i
-                                            class="fa-solid fa-trash"></i>
-                                    </a>
-                                    <a href="#" class="font-medium text-green-600 dark:text-green-500 p-1"><i
-                                            class="fa-solid fa-pen-to-square"></i></a>
-                                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 p-1"><i
-                                            class="fa-solid fa-eye"></i></a>
+                                    <button class="font-medium text-red-600 dark:text-red-500 p-1"><i
+                                            class="fa-solid fa-trash"></i></button>
+                                    <button class="font-medium text-green-600 dark:text-green-500 p-1"><i
+                                            class="fa-solid fa-pen-to-square"></i></button>
+                                    <button data-th-onclick="loadContactData([[${contactDetails.contactId}]])"
+                                        class="font-medium text-blue-600 dark:text-blue-500 p-1"><i
+                                            class="fa-solid fa-eye"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -150,6 +150,7 @@
                             </ul>
                         </nav>
                     </div>
+                    <div data-th-replace="~{user/contact_modal :: contact}"></div>
                 </div>
             </div>
 
