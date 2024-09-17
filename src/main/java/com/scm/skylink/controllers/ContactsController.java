@@ -97,7 +97,7 @@ public class ContactsController {
 
         // success message
         session.setAttribute("message", Message.builder()
-                .content("You are successfully added a contact.")
+                .content("You are successfully added a contact!")
                 .type(MessageType.green)
                 .build());
 
@@ -167,18 +167,35 @@ public class ContactsController {
     }
 
     @PostMapping("/update/{contactId}")
-    public String updateContact(@ModelAttribute ContactDto contactDto, @PathVariable Long contactId, Model model) {
+    public String updateContact(@ModelAttribute ContactDto contactDto, @PathVariable Long contactId, Model model,
+            HttpSession session) {
+
+        // Image upload
+        String fileURL = null;
+        if (contactDto.getContactImage() != null && !contactDto.getContactImage().isEmpty()) {
+            String filename = UUID.randomUUID().toString();
+            fileURL = imageService.uploadImage(contactDto.getContactImage(), filename);
+        }
+        contactDto.setContactImageUrl(fileURL);
+        // update contact
         contactService.updateContact(contactId, contactDto);
-        System.out.println("ContactDto=" + contactDto);
-        return "redirect:/user/contacts";
+
+        log.info("Contact with id {} successfully update!", contactId);
+        session.setAttribute("message",
+                Message.builder().type(MessageType.green).content("Contact successfully update!").build());
+
+        return "redirect:/user/contacts/view/" + contactId;
     }
 
     @GetMapping("/delete/{contactId}")
-    public String deleteContact(@PathVariable Long contactId, Model model) {
+    public String deleteContact(@PathVariable Long contactId, Model model, HttpSession session) {
         var contactDto = contactService.getContactById(contactId);
-        log.info("Contact id={}", contactDto.getContactId());
+        // log.info("Contact id={}", contactDto.getContactId());
+        contactService.deleteContactById(contactId);
         model.addAttribute("contactDto", contactDto);
-        return "redirect:/user/update_contact";
+        session.setAttribute("message",
+                Message.builder().type(MessageType.green).content("Successfull deleted the contact!").build());
+        return "redirect:/user/contacts";
     }
 
 }

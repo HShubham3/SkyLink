@@ -45,6 +45,7 @@ public class ContactServiceImp implements ContactService {
         contactOld.setWebLink(contactNew.getWebLink());
         contactOld.setLinkedinLink(contactNew.getLinkedinLink());
         contactOld.setLinks(contactNew.getLinks());
+        contactOld.setContactId(contactNew.getContactId());
 
         contactOld.setContactImageUrl(contactNew.getContactImageUrl());
 

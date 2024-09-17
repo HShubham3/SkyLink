@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthoritiesContainer;
@@ -29,6 +30,11 @@ public class SkyLinkUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepo.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Userdetails not found for user " + username));
+
+        if (!user.isEnabled()) {
+            throw new DisabledException("User account is not enabled");
+        }
+
         List<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority(user.getRoles()));
         return new User(user.getEmail(), user.getPwd(), authorities);
     }

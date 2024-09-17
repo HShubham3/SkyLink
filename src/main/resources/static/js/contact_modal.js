@@ -69,11 +69,6 @@ function deleteContact(id) {
     if (result.isConfirmed) {
       const url = `${URL}/user/contacts/delete/${id}`;
       window.location.replace(url);
-      //   Swal.fire({
-      //     title: "Deleted!",
-      //     text: "Your contact has been deleted.",
-      //     icon: "success",
-      //   });
     }
   });
 }
