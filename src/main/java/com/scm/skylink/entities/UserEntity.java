@@ -55,6 +55,8 @@ public class UserEntity {
 
     private boolean phoneNoVerified = false;
 
+    private String emailToken;
+
     private String roles;
 
     // SELF , GOOGLE , GITHUB , FACEBOOK ...

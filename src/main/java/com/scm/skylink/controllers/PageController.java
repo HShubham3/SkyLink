@@ -90,7 +90,8 @@ public class PageController {
             System.out.println(rBindingResult.toString());
             return "register";
         }
-
+        userDto.setProfilePic(
+                "https://www.google.com/url?sa=i&url=https%3A%2F%2Farchive.org%2Fdetails%2Finstagram-plain-round&psig=AOvVaw0PSv_BPj9YEUuBctBd3jac&ust=1726729220338000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCIi89-L1y4gDFQAAAAAdAAAAABAE");
         userService.createNewUser(userDto);
         Message message = Message.builder().content("Registration successfull")
                 .type(MessageType.green)

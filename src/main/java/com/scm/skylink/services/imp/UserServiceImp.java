@@ -7,10 +7,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.scm.skylink.dto.UserDto;
+import com.scm.skylink.entities.Helper;
 import com.scm.skylink.entities.UserEntity;
 import com.scm.skylink.exceptions.ResourceNotFoundException;
 import com.scm.skylink.helper.AppConstants;
 import com.scm.skylink.repositories.UserRepo;
+import com.scm.skylink.services.EmailService;
 import com.scm.skylink.services.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,8 @@ public class UserServiceImp implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final EmailService emailService;
+
     @Override
     public UserDto createNewUser(UserDto userDto) {
 
@@ -36,7 +40,12 @@ public class UserServiceImp implements UserService {
         String pwd = passwordEncoder.encode(user.getPwd());
         user.setPwd(pwd);
         user.setRoles(AppConstants.ROLE_USER);
-        return modelMapper.map(userRepo.save(user), UserDto.class);
+        String eamilToken = UUID.randomUUID().toString();
+        user.setEmailToken(eamilToken);
+        UserDto user1 = modelMapper.map(userRepo.save(user), UserDto.class);
+        emailService.sendEmail(user1.getEmail(), "Verify email ! SkyLink email verification mail.",
+                Helper.getLinkForEmailVerification(eamilToken));
+        return user1;
     }
 
     @Override
