@@ -56,4 +56,21 @@ public class UserServiceImp implements UserService {
         return modelMapper.map(userEntity, UserDto.class);
     }
 
+    @Override
+    public UserDto updateUserDetails(String userId, UserDto userDto) {
+        UserEntity user = isExixtByUserId(userId);
+
+        user.setName(userDto.getName());
+        user.setProfilePic(userDto.getProfilePic());
+
+        return modelMapper.map(userRepo.save(user), UserDto.class);
+    }
+
+    public UserEntity isExixtByUserId(String userId) {
+
+        return userRepo.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User with id " + userId + " not found"));
+
+    }
+
 }

@@ -72,7 +72,7 @@ public class ContactsController {
         if (contactDto.getContactImage() != null && !contactDto.getContactImage().isEmpty()) {
             String filename = UUID.randomUUID().toString();
             fileURL = imageService.uploadImage(contactDto.getContactImage(), filename);
-            log.info("COntact image url :{}", fileURL);
+            log.info("Contact image url :{}", fileURL);
         }
 
         // form validation

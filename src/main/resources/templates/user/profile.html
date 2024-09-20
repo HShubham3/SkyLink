@@ -1,24 +1,52 @@
 <!DOCTYPE html>
-<html th:replace="~{base:: parent(~{::#content},~{::title})}" xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title})}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile | SkyLink</title>
-
+    <title data-th-text="${userDetails.name}+' |  SCM'">Profile Page</title>
 </head>
 
 <body>
+    <div id="content">
+        <!-- sidebar -->
 
-    <!-- Sidebar  -->
-    <div id="content" class="sm:pl-72">
-        <div data-th-replace="~{user/sidebar::sidebar}"></div>
-        <div class=" text-black dark:text-white flex flex-col text-center">
-            <h1 class="text-5xl">Welcome to Profile</h1>
-            <h2>How's journey going on</h2>
+        <!-- user is logged in : sidebar -->
+
+        <div th:if="${userDetails}">
+            <div data-th-replace="~{user/sidebar :: sidebar}"></div>
         </div>
-    </div>
 
+        <div class="sm:pl-64">
+            <div class="flex items-center justify-center md:pt-32 flex-col">
+                <!--  profie card -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-2xl w-full">
+                    <div data-th-replace="~{message :: message}"></div>
+                    <div class="flex flex-col items-center">
+                        <div class="relative">
+                            <img onerror="this.src= 'https://static-00.iconduck.com/assets.00/profile-default-icon-2048x2045-u3j7s5nj.png' "
+                                data-th-src="@{${userDetails.profilePic}}"
+                                class="w-44 h-44 rounded-full shadow-lg object-cover mb-4" alt="">
+
+                        </div>
+                        <h2 class="text-2xl font-semibold mb-2" data-th-text=${userDetails.name}>User Name</h2>
+                        <p class="text-gray-600 mb-2" data-th-text="${userDetails.email}">user.email@example.com</p>
+                        <p class="text-gray-600 mb-2" data-th-text="${userDetails.phoneNo}">123-456-7890</p>
+                        <p class="text-gray-600 mb-4 text-center" data-th-text="${userDetails.about}">About the user...
+                        </p>
+                        <button type="button"
+                            class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"><a
+                                data-th-href="@{'/user/update'}">Edit</a></button>
+                        <div class="w-full flex justify-between">
+                            <p class="text-sm text-gray-500">Email Verified: <span class="font-medium text-gray-700"
+                                    id="email-verified"
+                                    data-th-text="${userDetails.emailVerified ? 'YES':'NO'}">No</span></p>
+                            <p class="text-sm text-gray-500">Phone Verified: <span class="font-medium text-gray-700"
+                                    id="phone-verified"
+                                    data-th-text="${userDetails.phoneNoVerified ? 'YES':'NO'}">No</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 </body>
 

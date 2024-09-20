@@ -44,7 +44,7 @@ async function loadContactData(id) {
 
   try {
     const data = await (await fetch(`${URL}/api/contacts/${id}`)).json();
-
+    document.querySelector("#contact_name").innerHTML = "Veeru";
     document.querySelector("#contact_name").innerHTML = data.name;
     document.querySelector("#contact_email").innerHTML = data.email;
     document.querySelector("#contact_image").src = data.contactImageUrl;

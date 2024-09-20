@@ -2,6 +2,8 @@ package com.scm.skylink.dto;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.scm.skylink.entities.ContactEntity;
 import com.scm.skylink.entities.Providers;
 
@@ -49,6 +51,8 @@ public class UserDto {
     private boolean emailVerified = false;
 
     private boolean phoneNoVerified = false;
+
+    private MultipartFile userPicture;
 
     @Enumerated
     private Providers provider = Providers.SELF;

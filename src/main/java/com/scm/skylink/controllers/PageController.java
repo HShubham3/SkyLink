@@ -97,7 +97,7 @@ public class PageController {
                 .type(MessageType.green)
                 .build();
         session.setAttribute("message", message);
-        return "redirect:/register";
+        return "emailsent";
     }
 
 }
